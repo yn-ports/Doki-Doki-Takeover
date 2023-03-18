@@ -9,11 +9,9 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import lime.app.Application;
-
 #if FEATURE_DISCORD
 import Discord.DiscordClient;
 #end
-
 // crash handler stuff
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
@@ -51,6 +49,8 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
+		
+		SUtil.gameCrashCheck();
 
 		if (stage != null)
 		{
@@ -77,11 +77,6 @@ class Main extends Sprite
 		// Run this first so we can see logs.
 		Debug.onInitProgram();
 
-		#if linux
-		startFullscreen = isSteamDeck();
-		#end
-
-		#if (flixel < "5.0.0")
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
@@ -93,7 +88,7 @@ class Main extends Sprite
 			gameWidth = Math.ceil(stageWidth / zoom);
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
-		#end
+		SUtil.doTheCheck();
 
 		game = new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen);
 		addChild(game);
@@ -153,7 +148,7 @@ class Main extends Sprite
 		errMsg += "\nUncaught Error: "
 			+ e.error
 			+ "\nPlease report this error to the GitHub page: https://github.com/Jorge-SunSpirit/Doki-Doki-Takeover\n\n> Crash Handler written by: sqirra-rng";
-			//+ "\nPlease report this error to #playtest-qa-testing.\n\n> Crash Handler written by: sqirra-rng";
+		// + "\nPlease report this error to #playtest-qa-testing.\n\n> Crash Handler written by: sqirra-rng";
 
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
