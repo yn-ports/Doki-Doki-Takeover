@@ -55,7 +55,7 @@
 	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
 	<classpath name="source" />
-
+	<assets path="assets/preload/images/androidcontrols" if="android"/>
 	<assets path="assets/preload" rename="assets"/>
 
 	<define name="PRELOAD_ALL" unless="web" />
@@ -171,7 +171,12 @@
 	<!--Used for Izzy Engine's crash handler-->
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
-
+	
+	<android permission="android.permission.ACCESS_NETWORK_STATE"/>	<android permission="android.permission.INTERNET"/>
+	<android permission="android.permission.VIBRATE"/>
+	<android permission="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<android permission="android.permission.READ_EXTERNAL_STORAGE"/>
+	
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
